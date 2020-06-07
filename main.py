@@ -11,64 +11,12 @@ teamSelection = ""
 url = "https://www.usatoday.com/sports/ncaaf/polls/amway-coaches-poll/"
 page = requests.get(url)
 
-html_string = """
-<table>
-  <thead>
-    <tr>
-      <th>Programming Language</th>
-      <th>Creator</th> 
-      <th>Year</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>C</td>
-      <td>Dennis Ritchie</td> 
-      <td>1972</td>
-    </tr>
-    <tr>
-      <td>Python</td>
-      <td>Guido Van Rossum</td> 
-      <td>1989</td>
-    </tr>
-    <tr>
-      <td>Ruby</td>
-      <td>Yukihiro Matsumoto</td> 
-      <td>1995</td>
-    </tr>
-  </tbody>
-</table>
-"""
-
-def parse_url(url):
-    response = requests.get(url)
-    soup = BeautifulSoup(response, "html.parser")
-    return soup
-
-#result = parse_url(url)
-
-dfs = pd.read_html(url, header=0)[0]
-print(dfs)
+def parse_coaches_poll(team):
+    dfs = pd.read_html("https://www.usatoday.com/sports/ncaaf/polls/amway-coaches-poll/", header=0)[0]
+    print("Coaches Poll:")
+    print(dfs[dfs['Team'].str.contains(team)])
 
 
-
-
-
-#print(soup.prettify())
-
-#result = soup.find_all(class_="gnt_sp_pl_tbl")
-
-
-#for elem in result:
-#    elemPrint = elem.find('td', class_= "gnt_sp_td")
-#    print(elem.text, end='\n'*2)
-#   print('\n')
-
-#print("What team would you like the ranking for?")
-
-
-
-#while True:
-#    choice = input("Enter Team Name:")
-#    print("Getting info for " + choice + "...")
-#    break
+while True:
+    result = input("What team?")
+    parse_coaches_poll(result)
