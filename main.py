@@ -16,7 +16,21 @@ def parse_coaches_poll(team):
     print("Coaches Poll:")
     print(dfs[dfs['Team'].str.contains(team)])
 
+def parse_cbs_poll(team):
+    dfs = pd.read_html("https://www.cbssports.com/college-football/rankings/", header=0)[2]
+    print("CBSSports 130:")
+    print(dfs[dfs['Team'].str.contains(team)])
+
+def parse_rcfb_poll(team):
+    dfs = pd.read_html("https://poll.redditcfb.com/", header=0)[0]
+    print("r/CFB Poll:")
+    print(dfs[dfs['Team'].str.contains(team)])
+
+def parse_all_polls(team):
+    parse_coaches_poll(team)
+    parse_cbs_poll(team)
+    parse_rcfb_poll(team)
 
 while True:
     result = input("What team?")
-    parse_coaches_poll(result)
+    parse_all_polls(result)
